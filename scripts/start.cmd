@@ -8,6 +8,13 @@ cd..
 start nats\nats-server.exe
 
 cd DisturbedProgramming
+cd EventLogger
+start dotnet run --no-build
+start dotnet run --no-build
+
+cd..
+
+
 cd RankCalculate
 start dotnet run --no-build
 start dotnet run --no-build

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using CommonLib;
 using NATS.Client;
 using System.Text;
+using System.Text.Json;
 
 namespace Valuator.Pages
 {
@@ -24,6 +25,9 @@ namespace Valuator.Pages
 
             string similarityKey = Constants.SIMILARITY + id;
             _storage.Store(similarityKey, GetSimilarity(text, id).ToString());
+
+            SimilarityMessage similarityMessage = new SimilarityMessage(id, GetSimilarity(text, id));
+            connection.Publish("valuator.logging.similarity", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(similarityMessage)));
 
             string textKey = Constants.TEXT + id;
             _storage.Store(textKey, text);

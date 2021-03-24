@@ -13,7 +13,7 @@ namespace RankCalculate
         private readonly IAsyncSubscription subscription;
         public RankCalculate(IStorage storage)
         {
-            subscription = connection.SubscribeAsync("processRank", (sender, args) =>
+            subscription = connection.SubscribeAsync("processRank", "queue", (sender, args) =>
             {
                 string id = Encoding.UTF8.GetString(args.Message.Data);
                 string textKey = Constants.TEXT + id;
@@ -21,10 +21,11 @@ namespace RankCalculate
                 if (storage.IsKeyExist(textKey))
                 {
                     string text = storage.Load(textKey);
-                    string rank = GetRank(text);
+                    string rank = GetRank(text).ToString();
                     storage.Store(Constants.RANK + id, rank);
 
-                    connection.Publish("rankCalculator.logging.rank", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(rank)));
+                    RankMessage rankMessage = new RankMessage(id, GetRank(text));
+                    connection.Publish("rankCalculate.logging.rank", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(rankMessage)));
                 }
             }
             );
@@ -43,11 +44,11 @@ namespace RankCalculate
             connection.Close();
         }
 
-        private string GetRank(string text)
+        private double GetRank(string text)
         {
             int lettersCount = text.Count(char.IsLetter);
 
-            return Math.Round(((lettersCount) / (double)text.Length), 2).ToString();
+            return Math.Round(((lettersCount) / (double)text.Length), 2);
         }
     }
 }
