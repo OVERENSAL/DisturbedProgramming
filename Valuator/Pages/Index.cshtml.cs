@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using CommonLib;
+using NATS.Client;
+using System.Text;
 
 namespace Valuator.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly IStorage _storage;
+        private readonly IConnection connection = new ConnectionFactory().CreateConnection();
 
         public IndexModel(IStorage storage)
         {
@@ -21,16 +22,13 @@ namespace Valuator.Pages
         {
             string id = Guid.NewGuid().ToString();
 
-            string similarityKey = "SIMILARITY-" + id;
+            string similarityKey = Constants.SIMILARITY + id;
             _storage.Store(similarityKey, GetSimilarity(text, id).ToString());
-            //TODO: посчитать similarity и сохранить в БД по ключу similarityKey
 
-            string textKey = "TEXT-" + id;
+            string textKey = Constants.TEXT + id;
             _storage.Store(textKey, text);
 
-            string rankKey = "RANK-" + id;
-            _storage.Store(rankKey, GetRank(text));
-            //TODO: посчитать rank и сохранить в БД по ключу rankKey
+            connection.Publish("processRank", Encoding.UTF8.GetBytes(id));
 
             return Redirect($"summary?id={id}");
         }
@@ -39,14 +37,7 @@ namespace Valuator.Pages
         {
             var keys = _storage.GetKeys();
 
-            return keys.Any(item => item.Substring(0, 5) == "TEXT-" && _storage.Load(item) == text) ? 1 : 0;
-        }
-
-        public string GetRank(string text)
-        {
-            double nonLetterCount = text.Count(x => !char.IsLetter(x));
-
-            return ((double)(nonLetterCount / text.Length)).ToString();
+            return keys.Any(item => item.Substring(0, 5) == Constants.TEXT && _storage.Load(item) == text) ? 1 : 0;
         }
     }
 }

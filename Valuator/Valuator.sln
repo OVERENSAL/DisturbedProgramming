@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valuator", "Valuator.csproj", "{7F3D169B-98B8-45E3-862F-892D4639E03E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "..\CommonLib\CommonLib.csproj", "{C9307B65-46E2-4DCD-A238-14B0AD570B57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RankCalculate", "..\RankCalculate\RankCalculate.csproj", "{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7F3D169B-98B8-45E3-862F-892D4639E03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3D169B-98B8-45E3-862F-892D4639E03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3D169B-98B8-45E3-862F-892D4639E03E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9307B65-46E2-4DCD-A238-14B0AD570B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9307B65-46E2-4DCD-A238-14B0AD570B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9307B65-46E2-4DCD-A238-14B0AD570B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9307B65-46E2-4DCD-A238-14B0AD570B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

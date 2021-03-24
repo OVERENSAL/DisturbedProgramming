@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using CommonLib;
 
 namespace Valuator.Pages
 {
@@ -22,9 +18,8 @@ namespace Valuator.Pages
 
         public void OnGet(string id)
         {
-            Rank = Convert.ToDouble(_storage.Load("RANK-" + id));
-            Similarity = Convert.ToDouble(_storage.Load("SIMILARITY-" + id));
-            //TODO: проинициализировать свойства Rank и Similarity сохранёнными в БД значениями
+            Rank = Convert.ToDouble(_storage.Load(Constants.RANK + id));
+            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
         }
     }
 }
