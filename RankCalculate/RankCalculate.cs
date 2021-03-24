@@ -3,17 +3,15 @@ using System.Text;
 using System.Linq;
 using CommonLib;
 using NATS.Client;
-using Microsoft.Extensions.Logging;
 
 namespace RankCalculate
 {
     class RankCalculate
     {
-        private readonly IConnection connection;
+        private readonly IConnection connection = new ConnectionFactory().CreateConnection();;
         private readonly IAsyncSubscription subscription;
         public RankCalculate(IStorage storage)
         {
-            connection = new ConnectionFactory().CreateConnection();
             subscription = connection.SubscribeAsync("processRank", (sender, args) =>
             {
                 string id = Encoding.UTF8.GetString(args.Message.Data);

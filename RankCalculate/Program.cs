@@ -8,9 +8,8 @@ namespace RankCalculate
     {
         static async Task Main(string[] args)
         {
-            using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
             var storage = new Storage();
-            var rankCalculator = new RankCalculate(loggerFactory.CreateLogger<RankCalculate>(), storage);
+            var rankCalculator = new RankCalculate(storage);
             rankCalculator.Start();
             await Task.Delay(-1);
         }
