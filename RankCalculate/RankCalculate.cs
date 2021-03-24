@@ -3,12 +3,13 @@ using System.Text;
 using System.Linq;
 using CommonLib;
 using NATS.Client;
+using System.Text.Json;
 
 namespace RankCalculate
 {
     class RankCalculate
     {
-        private readonly IConnection connection = new ConnectionFactory().CreateConnection();;
+        private readonly IConnection connection = new ConnectionFactory().CreateConnection();
         private readonly IAsyncSubscription subscription;
         public RankCalculate(IStorage storage)
         {
@@ -22,6 +23,8 @@ namespace RankCalculate
                     string text = storage.Load(textKey);
                     string rank = GetRank(text);
                     storage.Store(Constants.RANK + id, rank);
+
+                    connection.Publish("rankCalculator.logging.rank", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(rank)));
                 }
             }
             );
@@ -44,7 +47,7 @@ namespace RankCalculate
         {
             int lettersCount = text.Count(char.IsLetter);
 
-            return Math.Round(((text.Length - lettersCount) / (double)text.Length), 2).ToString();
+            return Math.Round(((lettersCount) / (double)text.Length), 2).ToString();
         }
     }
 }
