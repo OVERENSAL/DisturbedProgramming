@@ -6,38 +6,45 @@ namespace CommonLib
 {
     public interface IStorage
     {
-        void Store(string key, string text);
-        string Load(string key);
+        void Store(string key, string id, string text);
+        string Load(string key, string id);
         List<string> GetKeys();
         bool IsKeyExist(string key);
+        void SaveId(string id, string country);
     }
 
     public class Storage : IStorage
     {
-        private const string Host = "localhost";
-        private const int Port = 6379;
-        private readonly IConnectionMultiplexer _connection;
+        private readonly IConnectionMultiplexer _connection = ConnectionMultiplexer.Connect(Constants.Host);
 
-        public Storage()
-        {
-            _connection = ConnectionMultiplexer.Connect(Host);
-        }
 
-        public void Store(string key, string text)
+        public void Store(string key, string id, string text)
         {
             var db = _connection.GetDatabase();
-            db.StringSet(key, text);
+            var secondDbName = db.StringGet(id);
+
+            IConnectionMultiplexer secondConn = ConnectionMultiplexer.Connect(secondDbName);
+            var secondDb = secondConn.GetDatabase();
+            secondDb.StringSet(key, text);
+
+            secondConn.Dispose();
+            secondConn.Close();
         }
 
-        public string Load(string key)
+        public string Load(string key, string id)
         {
             var db = _connection.GetDatabase();
-            return db.StringGet(key);
+            var secondDbName = db.StringGet(id);
+
+            IConnectionMultiplexer secondConn = ConnectionMultiplexer.Connect(secondDbName);
+            var secondDb = secondConn.GetDatabase();
+
+            return secondDb.StringGet(key);
         }
 
         public List<string> GetKeys()
         {
-            var keys = _connection.GetServer(Host, Port).Keys();
+            var keys = _connection.GetServer(Constants.Host, Constants.Port).Keys();
 
             return keys.Select(item => item.ToString()).ToList();
         }
@@ -47,5 +54,12 @@ namespace CommonLib
             var db = _connection.GetDatabase();
             return db.KeyExists(key); 
         }
+
+        public void SaveId(string id, string country)
+        {
+            var db = _connection.GetDatabase();
+            db.StringSet(id, Constants.COUNTRIES_TO_REGIONS[country]);
+        }
+
     }
 }

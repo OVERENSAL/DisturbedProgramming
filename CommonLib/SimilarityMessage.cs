@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CommonLib
 {
-    public struct SimilarityMessage //почему десириализуется работает с классом
+    public struct SimilarityMessage
     {
         public string id { get; set; }
         public double similarity { get; set; }

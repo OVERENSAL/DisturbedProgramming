@@ -19,18 +19,20 @@ namespace Valuator.Pages
             _storage = storage;
         }
 
-        public IActionResult OnPost(string text)
+        public IActionResult OnPost(string text, string country)
         {
             string id = Guid.NewGuid().ToString();
 
+            _storage.SaveId(id, country);
+
             string similarityKey = Constants.SIMILARITY + id;
-            _storage.Store(similarityKey, GetSimilarity(text, id).ToString());
+            _storage.Store(similarityKey, id, GetSimilarity(text, id).ToString());
 
             SimilarityMessage similarityMessage = new SimilarityMessage(id, GetSimilarity(text, id));
             connection.Publish("valuator.logging.similarity", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(similarityMessage)));
 
             string textKey = Constants.TEXT + id;
-            _storage.Store(textKey, text);
+            _storage.Store(textKey, id, text);
 
             connection.Publish("processRank", Encoding.UTF8.GetBytes(id));
 
@@ -41,7 +43,14 @@ namespace Valuator.Pages
         {
             var keys = _storage.GetKeys();
 
-            return keys.Any(item => item.Substring(0, 5) == Constants.TEXT && _storage.Load(item) == text) ? 1 : 0;
+            foreach(string key in keys) {
+                if (text.Equals(_storage.Load(Constants.TEXT + key, key)))
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
         }
     }
 }

@@ -18,8 +18,8 @@ namespace Valuator.Pages
 
         public void OnGet(string id)
         {
-            Rank = Convert.ToDouble(_storage.Load(Constants.RANK + id));
-            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
+            Rank = Convert.ToDouble(_storage.Load(Constants.RANK + id, id));
+            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id, id));
         }
     }
 }

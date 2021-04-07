@@ -18,15 +18,12 @@ namespace RankCalculate
                 string id = Encoding.UTF8.GetString(args.Message.Data);
                 string textKey = Constants.TEXT + id;
 
-                if (storage.IsKeyExist(textKey))
-                {
-                    string text = storage.Load(textKey);
-                    string rank = GetRank(text).ToString();
-                    storage.Store(Constants.RANK + id, rank);
+                string text = storage.Load(textKey, id);
+                string rank = GetRank(text).ToString();
+                storage.Store(Constants.RANK + id, id, rank);
 
-                    RankMessage rankMessage = new RankMessage(id, GetRank(text));
-                    connection.Publish("rankCalculate.logging.rank", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(rankMessage)));
-                }
+                RankMessage rankMessage = new RankMessage(id, GetRank(text));
+                connection.Publish("rankCalculate.logging.rank", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(rankMessage)));
             }
             );
         }
