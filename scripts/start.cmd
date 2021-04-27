@@ -13,7 +13,7 @@ start dotnet run --no-build
 start dotnet run --no-build
 
 cd..
-cd nginx-1.19.8
+cd nginx
 start nginx.exe
 
 pause
