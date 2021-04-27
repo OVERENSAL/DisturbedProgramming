@@ -7,6 +7,6 @@ start dotnet run --urls "http://localhost:5002/"
 
 cd..
 
-start nginx-1.19.8\nginx.exe
+start nginx\nginx.exe
 
 pause
