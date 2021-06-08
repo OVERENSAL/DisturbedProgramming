@@ -1,0 +1,16 @@
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.exe
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.deps.json
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.runtimeconfig.json
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.runtimeconfig.dev.json
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.dll
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\ref\Chain.dll
+D:\ThirdCourse\DisturbedProgramming\Chain\bin\Debug\net5.0\Chain.pdb
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.csprojAssemblyReference.cache
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.GeneratedMSBuildEditorConfig.editorconfig
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.AssemblyInfoInputs.cache
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.AssemblyInfo.cs
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.csproj.CoreCompileInputs.cache
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.dll
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\ref\Chain.dll
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.pdb
+D:\ThirdCourse\DisturbedProgramming\Chain\obj\Debug\net5.0\Chain.genruntimeconfig.cache

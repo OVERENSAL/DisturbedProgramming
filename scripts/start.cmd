@@ -1,3 +1,6 @@
+set DB_RUS=localhost:6000
+set DB_EU=localhost:6001
+set DB_OTHER=localhost:6002
 cd ..
 cd Valuator
 start dotnet run --urls "http://localhost:5001/"

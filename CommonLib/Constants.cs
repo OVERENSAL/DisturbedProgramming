@@ -12,9 +12,9 @@ namespace CommonLib
 
         public const string Host = "localhost";
         public const int Port = 6379;
-        public const int PortRU = 6000;
-        public const int PortEU = 6001;
-        public const int PortOT = 6002;
+        public static string DB_RUS = Environment.GetEnvironmentVariable("DB_RUS");
+        public static string DB_EU = Environment.GetEnvironmentVariable("DB_EU");
+        public static string DB_OTHER = Environment.GetEnvironmentVariable("DB_OTHER");
 
         public static Dictionary<string, string> COUNTRIES_TO_REGIONS = new Dictionary<string, string>()
         {
