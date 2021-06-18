@@ -1,4 +1,65 @@
 
+Changes with nginx 1.21.0                                        25 May 2021
+
+    *) Security: 1-byte memory overwrite might occur during DNS server
+       response processing if the "resolver" directive was used, allowing an
+       attacker who is able to forge UDP packets from the DNS server to
+       cause worker process crash or, potentially, arbitrary code execution
+       (CVE-2021-23017).
+
+    *) Feature: variables support in the "proxy_ssl_certificate",
+       "proxy_ssl_certificate_key" "grpc_ssl_certificate",
+       "grpc_ssl_certificate_key", "uwsgi_ssl_certificate", and
+       "uwsgi_ssl_certificate_key" directives.
+
+    *) Feature: the "max_errors" directive in the mail proxy module.
+
+    *) Feature: the mail proxy module supports POP3 and IMAP pipelining.
+
+    *) Feature: the "fastopen" parameter of the "listen" directive in the
+       stream module.
+       Thanks to Anbang Wen.
+
+    *) Bugfix: special characters were not escaped during automatic redirect
+       with appended trailing slash.
+
+    *) Bugfix: connections with clients in the mail proxy module might be
+       closed unexpectedly when using SMTP pipelining.
+
+
+Changes with nginx 1.19.10                                       13 Apr 2021
+
+    *) Change: the default value of the "keepalive_requests" directive was
+       changed to 1000.
+
+    *) Feature: the "keepalive_time" directive.
+
+    *) Feature: the $connection_time variable.
+
+    *) Workaround: "gzip filter failed to use preallocated memory" alerts
+       appeared in logs when using zlib-ng.
+
+
+Changes with nginx 1.19.9                                        30 Mar 2021
+
+    *) Bugfix: nginx could not be built with the mail proxy module, but
+       without the ngx_mail_ssl_module; the bug had appeared in 1.19.8.
+
+    *) Bugfix: "upstream sent response body larger than indicated content
+       length" errors might occur when working with gRPC backends; the bug
+       had appeared in 1.19.1.
+
+    *) Bugfix: nginx might not close a connection till keepalive timeout
+       expiration if the connection was closed by the client while
+       discarding the request body.
+
+    *) Bugfix: nginx might not detect that a connection was already closed
+       by the client when waiting for auth_delay or limit_req delay, or when
+       working with backends.
+
+    *) Bugfix: in the eventport method.
+
+
 Changes with nginx 1.19.8                                        09 Mar 2021
 
     *) Feature: flags in the "proxy_cookie_flags" directive can now contain

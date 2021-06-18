@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valuator", "Valuator.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "..\CommonLib\CommonLib.csproj", "{C9307B65-46E2-4DCD-A238-14B0AD570B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RankCalculate", "..\RankCalculate\RankCalculate.csproj", "{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RankCalculator", "..\RankCalculator\RankCalculator.csproj", "{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
