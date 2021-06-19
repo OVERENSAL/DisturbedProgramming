@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text.Json;
 using CommonLib;
 
-namespace EventLogger
+namespace EventsLogger
 {
-    class EventLogger
+    class EventsLogger
     {
         private readonly IConnection connection = new ConnectionFactory().CreateConnection();
         private readonly IAsyncSubscription subscription;
 
-        public EventLogger()
+        public EventsLogger()
         { 
             subscription = connection.SubscribeAsync("valuator.logging.similarity", (sender, args) =>
             {
