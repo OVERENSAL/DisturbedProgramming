@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valuator", "Valuator.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLib", "..\CommonLib\CommonLib.csproj", "{C9307B65-46E2-4DCD-A238-14B0AD570B57}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RankCalculate", "..\RankCalculate\RankCalculate.csproj", "{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RankCalculator", "..\RankCalculator\RankCalculator.csproj", "{F54EBDE5-81E1-4F7F-8849-5FD2E467C15F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLogger", "..\EventLogger\EventLogger.csproj", "{F54E21B5-8E63-4FFB-9374-BC5647DC6C46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsLogger", "..\EventsLogger\EventsLogger.csproj", "{F54E21B5-8E63-4FFB-9374-BC5647DC6C46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

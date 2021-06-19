@@ -5,13 +5,13 @@ using CommonLib;
 using NATS.Client;
 using System.Text.Json;
 
-namespace RankCalculate
+namespace RankCalculator
 {
-    class RankCalculate
+    class RankCalculator
     {
         private readonly IConnection connection = new ConnectionFactory().CreateConnection();
         private readonly IAsyncSubscription subscription;
-        public RankCalculate(IStorage storage)
+        public RankCalculator(IStorage storage)
         {
             subscription = connection.SubscribeAsync("processRank", "queue", (sender, args) =>
             {
