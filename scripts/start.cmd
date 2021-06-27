@@ -13,14 +13,13 @@ start nats\nats-server.exe
 
 cd DisturbedProgramming
 cd EventsLogger
-start dotnet build
+dotnet build
 start dotnet run --no-build
 start dotnet run --no-build
 
 cd..
-
-
 cd RankCalculator
+dotnet build
 start dotnet run --no-build
 start dotnet run --no-build
 
