@@ -137,3 +137,6 @@ nginx/*
 !nginx/conf/
 nginx/conf/*
 !nginx/conf/nginx.conf
+
+#vs
+.vs
