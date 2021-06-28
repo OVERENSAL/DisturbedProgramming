@@ -6,6 +6,7 @@ using CommonLib;
 using NATS.Client;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 
 namespace Valuator.Pages
 {
@@ -35,6 +36,12 @@ namespace Valuator.Pages
             _storage.Store(textKey, id, text);
 
             connection.Publish("processRank", Encoding.UTF8.GetBytes(id));
+
+            while (_storage.Load(Constants.RANK, id) == null)
+            {
+                Thread.Sleep(100);
+                return Redirect($"summary?id={id}");
+            }
 
             return Redirect($"summary?id={id}");
         }

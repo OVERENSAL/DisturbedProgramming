@@ -26,8 +26,6 @@ namespace EventsLogger
                 Console.WriteLine($"Subject: {args.Message.Subject} Id {message.id} Rank {message.rank}");
             }
             );
-
-            Console.WriteLine("EventLogger is started");
         }
 
         public void Start()
