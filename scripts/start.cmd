@@ -4,8 +4,9 @@ start nginx.exe
 
 cd ..
 cd Valuator
-start dotnet run --urls "http://localhost:5001/"
-start dotnet run --urls "http://localhost:5002/"
+dotnet build
+start dotnet run --no-build --urls "http://localhost:5001/"
+start dotnet run --no-build --urls "http://localhost:5002/"
 
 cd..
 cd..
