@@ -1,9 +1,0 @@
-D:\ThirdCourse\DisturbedProgramming\CommonLib\bin\Debug\netstandard2.0\CommonLib.deps.json
-D:\ThirdCourse\DisturbedProgramming\CommonLib\bin\Debug\netstandard2.0\CommonLib.dll
-D:\ThirdCourse\DisturbedProgramming\CommonLib\bin\Debug\netstandard2.0\CommonLib.pdb
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.AssemblyInfoInputs.cache
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.AssemblyInfo.cs
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.csproj.CoreCompileInputs.cache
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.dll
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.pdb
-D:\ThirdCourse\DisturbedProgramming\CommonLib\obj\Debug\netstandard2.0\CommonLib.csprojAssemblyReference.cache
