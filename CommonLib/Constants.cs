@@ -18,11 +18,11 @@ namespace CommonLib
 
         public static Dictionary<string, string> COUNTRIES_TO_REGIONS = new Dictionary<string, string>()
         {
-            ["Россия"] = "localhost:6000",
-            ["Франция"] = "localhost:6001",
-            ["Германия"] = "localhost:6001",
-            ["США"] = "localhost:6002",
-            ["Индия"] = "localhost:6002"
+            ["Россия"] = DB_RUS,
+            ["Франция"] = DB_EU,
+            ["Германия"] = DB_EU,
+            ["США"] = DB_OTHER,
+            ["Индия"] = DB_OTHER
         };
     }
 }

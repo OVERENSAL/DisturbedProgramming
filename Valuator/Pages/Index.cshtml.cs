@@ -39,7 +39,7 @@ namespace Valuator.Pages
 
             while (_storage.Load(Constants.RANK, id) == null)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(300);
                 return Redirect($"summary?id={id}");
             }
 
