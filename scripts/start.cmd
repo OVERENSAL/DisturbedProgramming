@@ -1,8 +1,4 @@
-cd..
-cd..
-start nats\nats-server.exe
-
-cd DisturbedProgramming
+cd ..
 cd nginx
 start nginx.exe
 
