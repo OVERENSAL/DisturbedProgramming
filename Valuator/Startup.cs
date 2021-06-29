@@ -1,9 +1,9 @@
+using Common.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CommonLib;
 
 namespace Valuator
 {
@@ -20,7 +20,7 @@ namespace Valuator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddScoped<IStorage, Storage>();
+            services.AddScoped<IStorage, Redis>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

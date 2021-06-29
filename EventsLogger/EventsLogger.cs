@@ -1,44 +1,32 @@
-﻿using System;
+﻿using Common;
+using Common.Structures;
 using NATS.Client;
-using System.Linq;
+using System;
 using System.Text.Json;
-using CommonLib;
 
 namespace EventsLogger
 {
-    class EventsLogger
+    public class EventsLogger
     {
-        private readonly IConnection connection = new ConnectionFactory().CreateConnection();
-        private readonly IAsyncSubscription subscription;
-
+        private static IConnection _broker;
+        private readonly IAsyncSubscription _loggerSubscription;
         public EventsLogger()
-        { 
-            subscription = connection.SubscribeAsync("valuator.logging.similarity", (sender, args) =>
-            {
-                SimilarityMessage message = JsonSerializer.Deserialize<SimilarityMessage>(args.Message.Data);
-                Console.WriteLine($"Subject: {args.Message.Subject} Id {message.id} Similarity {message.similarity}");
-            }
-            );
-
-            subscription = connection.SubscribeAsync("rankCalculate.logging.rank", (sender, args) =>
-            {
-                RankMessage message = JsonSerializer.Deserialize<RankMessage>(args.Message.Data);
-                Console.WriteLine($"Subject: {args.Message.Subject} Id {message.id} Rank {message.rank}");
-            }
-            );
-        }
-
-        public void Start()
         {
-            subscription.Start();
-
-            Console.WriteLine("Press Enter to exit");
-            Console.ReadLine();
-
-            subscription.Unsubscribe();
-
-            connection.Drain();
-            connection.Close();
+            _broker = new ConnectionFactory().CreateConnection();
+            _loggerSubscription = _broker.SubscribeAsync(Constants.BROKER_CHANNEL_EVENTS_LOGGER, Print);
         }
+
+        ~EventsLogger()
+        {
+            _broker.Drain();
+            _broker.Close();
+        }
+
+        private EventHandler<MsgHandlerEventArgs> Print = (sender, args) =>
+        {
+            LoggerData data = JsonSerializer.Deserialize<LoggerData>(args.Message.Data);
+
+            Console.WriteLine($"{data.eventName} : {data.contextId}, {data.eventData}");
+        };
     }
 }

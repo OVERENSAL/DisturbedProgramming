@@ -1,14 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace EventsLogger
 {
-    class Program
+    internal static class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            var eventLogger = new EventsLogger();
-            eventLogger.Start();
+            var eventsLogger = new EventsLogger();
             await Task.Delay(-1);
         }
     }

@@ -1,16 +1,13 @@
-﻿using CommonLib;
-using Microsoft.Extensions.Logging;
+﻿using Common.Storage;
 using System.Threading.Tasks;
 
 namespace RankCalculator
 {
-    class Program
+    internal static class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            var storage = new Storage();
-            var rankCalculator = new RankCalculator(storage);
-            rankCalculator.Start();
+            var calculator = new RankCalculator(new Redis());
             await Task.Delay(-1);
         }
     }

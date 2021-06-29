@@ -1,63 +1,74 @@
 ﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using CommonLib;
-using NATS.Client;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using Common;
+using Common.Storage;
+using Common.Structures;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using NATS.Client;
 
 namespace Valuator.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        private readonly IConnection connection = new ConnectionFactory().CreateConnection();
+        private static IConnection _broker;
 
-        public IndexModel(IStorage storage)
+        public IndexModel(ILogger<IndexModel> logger, IStorage storage)
         {
+            _logger = logger;
             _storage = storage;
+            _broker = new ConnectionFactory().CreateConnection();
         }
+
+        public void OnGet() { }
 
         public IActionResult OnPost(string text, string country)
         {
+            _logger.LogDebug(text);
+
             string id = Guid.NewGuid().ToString();
 
-            _storage.SaveId(id, country);
+            _storage.SaveIdToRegion(id, country);
 
-            string similarityKey = Constants.SIMILARITY + id;
-            _storage.Store(similarityKey, id, GetSimilarity(text, id).ToString());
-
-            SimilarityMessage similarityMessage = new SimilarityMessage(id, GetSimilarity(text, id));
-            connection.Publish("valuator.logging.similarity", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(similarityMessage)));
-
-            string textKey = Constants.TEXT + id;
-            _storage.Store(textKey, id, text);
-
-            connection.Publish("processRank", Encoding.UTF8.GetBytes(id));
-
-            while (_storage.Load(Constants.RANK, id) == null)
+            string similarityKey = Constants.SIMILARITY_NAME + id;
             {
-                Thread.Sleep(300);
+                int similarity = 0;
+                var keys = _storage.GetKeys(Constants.TEXT_NAME);
+                foreach(var key in keys)
+                {
+                    if (_storage.Load(Constants.TEXT_NAME, key) == text)
+                    {
+                        similarity = 1;
+                        break;
+                    }
+                }
+                _storage.Save(Constants.SIMILARITY_NAME, id, similarity.ToString());
+
+                LoggerData loggerData = new("similarity_calculated", id, similarity.ToString());
+                string dataToSend = JsonSerializer.Serialize(loggerData);
+       
+                _broker.Publish(Constants.BROKER_CHANNEL_EVENTS_LOGGER, Encoding.UTF8.GetBytes(dataToSend));
+            }
+
+            string textKey = Constants.TEXT_NAME + id;
+            _storage.Save(Constants.TEXT_NAME, id, text);
+
+            string rankKey = Constants.RANK_NAME + id;
+            _broker.Publish(Constants.BROKER_CHANNEL_FOR_RANK_CALCULATION, Encoding.UTF8.GetBytes(id));
+
+
+            while(_storage.Load(Constants.RANK_NAME, id) == null)
+            {
+                Thread.Sleep(100);
                 return Redirect($"summary?id={id}");
             }
 
             return Redirect($"summary?id={id}");
-        }
-
-        private int GetSimilarity(string text, string id)
-        {
-            var keys = _storage.GetKeys();
-
-            foreach(string key in keys) {
-                if (text.Equals(_storage.Load(Constants.TEXT + key, key)))
-                {
-                    return 1;
-                }
-            }
-
-            return 0;
         }
     }
 }
